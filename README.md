@@ -1,4 +1,6 @@
-# frontend
+# Soloroom-frontend
+
+[![CircleCI](https://circleci.com/gh/SoloLa-Platform/soloroom-frontend.svg?style=svg)](https://circleci.com/gh/SoloLa-Platform/soloroom-frontend)
 
 ## Project setup
 ```

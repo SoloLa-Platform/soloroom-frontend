@@ -17,6 +17,7 @@ import { OpenSheetMusicDisplay, Cursor, VoiceEntry, Note, StemDirectionType } fr
 import axios from 'axios';
 
 export default Vue.extend({
+  name: 'Editor',
   data() {
     return {
       OSMDViewer: {} as any,

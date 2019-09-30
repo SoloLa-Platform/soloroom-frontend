@@ -19,6 +19,7 @@ import Editor from '@/components/Editor.vue';
 import AudioMedia from '@/components/AudioMedia.vue';
 
 export default {
+  name: 'Transcription',
   data() {
     return {
       viewer: Object,
@@ -30,6 +31,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
 $header-height: 80px;
 $media-width: 560px;
