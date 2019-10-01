@@ -2,6 +2,9 @@
 
 [![CircleCI](https://circleci.com/gh/SoloLa-Platform/soloroom-frontend.svg?style=svg)](https://circleci.com/gh/SoloLa-Platform/soloroom-frontend)
 
+# Contribution Guide
+Under construction..., You can check out our [trello kanban](https://trello.com/b/eBcjm7aR/solola-project) to pick up tasks.
+
 ## Project setup
 ```
 yarn install
