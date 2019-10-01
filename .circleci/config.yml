@@ -50,6 +50,7 @@ jobs:
       - store_artifacts:
           path: coverage
       
-      # - run:
-      #     name: "build"
-      #     command: yarn build
+      # build 
+      - run:
+          name: "build"
+          command: yarn build

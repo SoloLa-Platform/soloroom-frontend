@@ -1,14 +1,14 @@
 <template>
-  <div class="editor-container">
+  <div class="transcription-container">
       <div class="header">
-        <h1>Solola</h1>
+        <h1 class="title">Solola</h1>
       </div>
       <div class="transcription-content">
-        <div class="media">
+        <div class="media-wrapper">
           <AudioMedia/>
         </div>
-        <div class="score-editor-container">
-          <Editor/>
+        <div class="editor-wrapper">
+          <Editor class="editor"/>
         </div>
       </div>
   </div>
@@ -34,11 +34,9 @@ export default {
 
 <style lang="scss" scoped>
 $header-height: 80px;
-$media-width: 560px;
-$laptop-width: 1366px;
-$laptop-height: 768px;
+$media-width: 400px;
 
-.editor-container {
+.transcription-container {
   display: flex;
   flex-direction: column;
 
@@ -46,22 +44,25 @@ $laptop-height: 768px;
       height: $header-height; 
       background-color: #3C3B3B;
       color: #EEEEEE;
+      .title {
+        margin-left: 35px;
+      }
     }
   .transcription-content {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     
-    .media {
+    .media-wrapper {
       width: $media-width;
       background: #ECECEC;
     }
-
-    .score-editor-container {
-      width: 100%;
-      // @media screen and (min-width: 1366px) {
-      //   width: 100%;
-      // }
+    .editor-wrapper {
+      
+      width: 880px;
+      .editor {
+        width: 100%;
+      }
     }
   }
 }
