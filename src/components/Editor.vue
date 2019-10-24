@@ -3,10 +3,8 @@
   <div ref="score-container" class="score-container">
     <div class="score" ref="score">    
     </div>
-    <div class="tools"></div>
   </div>
   <div class="control-container">
-    <div class=""></div>
   </div>
 </div>
 </template>
@@ -32,7 +30,7 @@ export default Vue.extend({
       await this.fetchDemoSheet();
       const container: HTMLElement = this.$refs.score as HTMLElement;
 
-      this.OSMDViewer = new OpenSheetMusicDisplay(container, { autoResize: false });
+      this.OSMDViewer = new OpenSheetMusicDisplay(container, { autoResize: true });
       this.OSMDViewer.setLogLevel('info');
       this.OSMDViewer.load(this.demoSheet as string).then(() => {
         this.OSMDViewer.render();
@@ -57,23 +55,20 @@ export default Vue.extend({
 .editor-container {
   display: flex;
   flex-direction: column;
+ 
   .score-container {
-    height: 700px;
-    display: flex;
-
+    display: flex;  
+    
     .score {
-      width: 100%;
+      display: inline-block;
+      height: 70vh;
       overflow-y: scroll;
-    }
-    .tools {
-      width: 5%;
-      background-color: #CCCCCC;
+      width: 100%;
     }
   }
   .control-container {
     background-color: #CCCCCC;
-    width: 100%;
-    height: 150px;
+    height: 80px;
   }
 }
 
