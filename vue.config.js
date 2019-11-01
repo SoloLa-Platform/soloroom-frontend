@@ -29,21 +29,55 @@ module.exports = {
         before(app) {
           app.use(bodyParser.urlencoded());
           app.use(bodyParser.json());
-          app.post('/sheet/demo', (req, res) => {
+          // Fake user data
+          const FAKE_USER = {
+            email: 'superguitarhero@gmail.com',
+            password: 'Abc12345678',
+            name: 'guitarHero',
+          };
+
+          app.post('/register', (request, response) => {
+            // request
+            const body = request.body;
+            if (body.email === FAKE_USER.email
+              && body.password === FAKE_USER.password) {
+              response.status(409);
+              response.send({result: 'User exist'});
+            } else {
+              response.status(200);
+              response.send({id: `${Math.floor(Math.random()*1000)}`});
+            }
+          });
+
+          app.post('/login', (request, response) => {
+            const body = request.body;
+            if (body.email === FAKE_USER.email
+                && body.password === FAKE_USER.password) {
+              response.status(200);
+              response.send({result: 'successfully login'});
+            } else {
+              response.status(401);
+              response.send({result: 'fail to authenticate'});
+            }
+          });
+
+
+          // fetch .mzxml
+          app.post('/sheet-music/demo', (request, response) => {
             let content = '';
-            const rl = readline.createInterface({
+            const reader = readline.createInterface({
               input: fs.createReadStream(`${__dirname}/mock/MozartTrio.musicxml`),
             });
-            rl.on('line', (line) => {
+            reader.on('line', (line) => {
                 content += `${line}`;
             });
             
-            rl.on('close', () => {
-              res.set('Content-Type', 'text/xml');
-              // res.type('application/xml');
-              res.send(content);
+            reader.on('close', () => {
+              response.set('Content-Type', 'text/xml');
+              // response.type('application/xml');
+              response.send(content);
             });
-          })
+          });
         }        
     }
 }
