@@ -37,7 +37,7 @@ export default Vue.extend({
       });
     },
     fetchDemoSheet() {
-      return axios.post('/sheet/demo', {
+      return axios.post('/sheet-music/demo', {
         header: {
           'Content-Type': 'application/xml; charset=utf-8',
         },
