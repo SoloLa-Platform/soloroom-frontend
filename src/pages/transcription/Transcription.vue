@@ -1,16 +1,15 @@
 <template>
   <div class="transcription-container">
-      <div class="header">
-        <h1 class="title">Solola</h1>
+    <div class="transcription-content">
+      <!-- MediaWrapper Component-->
+      <div class="media-wrapper">
+        <AudioMedia/>
       </div>
-      <div class="transcription-content">
-        <div class="media-wrapper">
-          <AudioMedia/>
-        </div>
-        <div class="editor-wrapper">
-          <Editor class="editor"/>
-        </div>
+      <!-- Editor Component -->
+      <div class="editor-wrapper">
+        <Editor class="editor"/>
       </div>
+    </div>
   </div>
 </template>
 
@@ -33,36 +32,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$header-height: 80px;
-$media-width: 400px;
-
 .transcription-container {
   display: flex;
   flex-direction: column;
 
-  .header {
-      height: $header-height; 
-      background-color: #3C3B3B;
-      color: #EEEEEE;
-      .title {
-        margin-left: 35px;
-      }
-    }
   .transcription-content {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     
     .media-wrapper {
-      width: $media-width;
       background: #ECECEC;
-    }
-    .editor-wrapper {
-      
-      width: 880px;
-      .editor {
-        width: 100%;
-      }
+      border: 1px solid rgb(224, 224, 224);
     }
   }
 }
