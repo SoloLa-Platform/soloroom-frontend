@@ -1,16 +1,21 @@
 <template>
 <div class="editor-container">
   <div ref="score-container" class="score-container">
+    <!-- SheetMusic Component-->
     <div class="score" ref="score">    
     </div>
-  </div>
-  <div class="control-container">
-  </div>
+    <!-- NoteToolBox Component-->
+    <div class="note-toolbox"></div>
+    </div>
+    <!-- PlayingController Component-->
+    <div class="control-container">
+    </div>
 </div>
 </template>
 
 <script lang="ts">
 import Vue, { VNode } from 'vue';
+// todos
 import { OpenSheetMusicDisplay, Cursor, VoiceEntry, Note, StemDirectionType } from 'opensheetmusicdisplay';
 import axios from 'axios';
 
@@ -26,6 +31,7 @@ export default Vue.extend({
     this.createOSMDViewer();
   },
   methods: {
+    // todo: move into SheetMusic component
     async createOSMDViewer(): Promise<any> {
       await this.fetchDemoSheet();
       const container: HTMLElement = this.$refs.score as HTMLElement;
@@ -36,6 +42,7 @@ export default Vue.extend({
         this.OSMDViewer.render();
       });
     },
+    // todo: move into service
     fetchDemoSheet() {
       return axios.post('/sheet-music/demo', {
         header: {
@@ -55,20 +62,33 @@ export default Vue.extend({
 .editor-container {
   display: flex;
   flex-direction: column;
- 
   .score-container {
     display: flex;  
-    
+    height: calc( 90vh - 70px );  
     .score {
       display: inline-block;
-      height: 70vh;
       overflow-y: scroll;
-      width: 100%;
+      
+      @media screen and (max-width: 1367px) {
+        // width: 1200px;
+        width: calc(69vw - 60px);
+      }
+      
+      @media screen and (min-width: 1366px) and (max-width:1920px) {
+        // width: 1500px;
+        width: 75vw;
+      }
+        
     }
   }
   .control-container {
-    background-color: #CCCCCC;
-    height: 80px;
+    background-color: #ffffff;
+    height: 50px;
+    border: 1px solid rgb(224, 224, 224);
+  }
+  .note-toolbox {
+    width: 60px;
+    border: 1px solid rgb(224, 224, 224);
   }
 }
 
