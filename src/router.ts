@@ -9,7 +9,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Editor',
+      name: 'Transcription',
       component: () => import('./pages/transcription/Transcription.vue'),
     },
     // {
