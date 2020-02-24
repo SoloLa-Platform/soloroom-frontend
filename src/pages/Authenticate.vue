@@ -1,12 +1,12 @@
 <template>
   <div>
     <component :is="loginOrRegister" />
-    <!-- <a v-show="isNewUser" class="auth-link" @click="toggleComponent"
+    <a v-show="isNewUser" class="auth-link" @click="toggleComponent"
       >Don't have an account? Create one.</a
     >
     <a v-show="!isNewUser" class="auth-link" @click="toggleComponent"
       >Already have an account? Login.</a
-    > -->
+    >
   </div>
 </template>
 
