@@ -1,27 +1,21 @@
 <template>
   <div id="app">
-    <NavigationBar />
-    <router-view :class="{ page: !transcription }" />
+    <Home/>
   </div>
 </template>
 
 <script lang="ts">
+import Home from './pages/Home.vue';
 import Vue from 'vue';
-import NavigationBar from '@/components/NavigationBar.vue';
+import { mapActions, mapGetters } from 'vuex';
 
 export default Vue.extend({
   name: 'App',
   components: {
-    NavigationBar,
+    Home,
   },
   computed: {
-    transcription() {
-      if (this.$route.path === '/transcription') {
-        return true;
-      } else {
-        return false;
-      }
-    },
+    ...mapGetters('user', ['isLoggedIn']),
   },
 });
 </script>

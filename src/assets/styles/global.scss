@@ -6,7 +6,7 @@ body {
   margin: 0em;
 }
 
-.page {
+.section {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -27,11 +27,16 @@ button {
   height: 2em;
   margin: 0.5em;
   border-radius: 5px;
-  background: linear-gradient(to right, #2b2e2e, #a3a2a2);
   font-size: 1em;
-  color: white;
+  color: #2c3e50;
+  background: white;
+
   border: none;
   outline: none;
+}
+
+.button:hover {
+  background: #e0e0e0;
 }
 
 form {
@@ -64,4 +69,10 @@ input {
 
 h1 {
   margin-top: 0;
+}
+
+.action-button {
+  background-color: #007dc1;
+  color: white;
+  font-size: 1rem;
 }
