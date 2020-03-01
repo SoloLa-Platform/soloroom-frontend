@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit --colors --coverage",
-    "test:watch": "vue-cli-service test:unit --watchAll --notify --colors --coverage",
+    "test:watchAll": "vue-cli-service test:unit --watchAll --notify --colors --coverage",
+    "test:watch": "vue-cli-service test:unit --colors --watch --coverage",
     "start": "node server.js & vue-cli-service serve"
   },
   "dependencies": {

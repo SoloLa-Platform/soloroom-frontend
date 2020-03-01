@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from '@/store';
 
 Vue.use(Router);
 
@@ -10,40 +11,33 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import('./pages/Home.vue'),
+      component: () => import('./views/ListSection.vue'),
     },
     {
-      path: '/transcription',
-      name: 'transcription',
-      component: () => import('./pages/transcription/Transcription.vue'),
+      path: '/transcribe',
+      name: 'transcribe',
+      component: () => import('./views/Transcription.vue'),
       meta: { requiresAuth: true },
     },
     {
-      path: '/authenticate',
-      name: 'authenticate',
-      component: () => import('./pages/Authenticate.vue'),
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Login.vue'),
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (about.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
-    // },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('./views/Registration.vue'),
+    },
   ],
 });
 
+const publicPages = ['/login', '/', '/register'];
 router.beforeEach((to, from, next) => {
-  // redirect to login page if user is not logged in and trying to access a restricted page
-  const publicPages = ['/authenticate', '/'];
-  const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem('user');
-
-  if (authRequired && !loggedIn) {
-    return next('/authenticate');
+  const isAuthenticationRequired = !publicPages.includes(to.path);
+  if (!store.getters['user/isLoggedIn'] && isAuthenticationRequired) {
+    next('login');
   }
-
   next();
 });
 
