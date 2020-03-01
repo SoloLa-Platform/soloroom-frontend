@@ -10,6 +10,9 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    // temp solution for this version
+    // this will be fixed in SR-159
+    "noImplicitAny": false,
     "types": [
       "webpack-env",
       "jest"
