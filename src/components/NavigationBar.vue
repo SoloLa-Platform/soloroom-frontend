@@ -7,10 +7,10 @@
         <button type="button" @click="sendLogoutRequest">Logout</button>
         <!-- TODO : this will be replaced by icon to indicate user login status -->
         <div class="user-icon-block">
-          <span class="nav-welcome">Helle {{ user.name }}.</span>
+          <span class="nav-welcome">Hello {{ user.name }}.</span>
         </div>
       </template>
-      <router-link  v-if="!isLoggedIn" to="/login" class="button">Login</router-link>
+      <router-link v-if="!isLoggedIn" to="/login" class="button">Login</router-link>
     </div>
   </div>
 </template>
