@@ -23,6 +23,7 @@
     "readline": "^1.3.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
+    "vue-youtube": "^1.4.0",
     "vuex": "^3.0.1",
     "xml": "^1.0.1"
   },
@@ -68,7 +69,6 @@
       "^.+\\.tsx?$": "ts-jest",
       "^.+\\.(js|ts)?$": "ts-jest"
     },
-    
     "transformIgnorePatterns": [
       "/node_modules/",
       "/node_modules/(?!(opensheetmusicdisplay)/)"
@@ -101,11 +101,15 @@
     "trailingComma": "all",
     "printWidth": 80,
     "semi": true,
-    "overrides": [{
-      "files": ["*.json"],
-      "options": {
-        "trailingComma": "es5"
+    "overrides": [
+      {
+        "files": [
+          "*.json"
+        ],
+        "options": {
+          "trailingComma": "es5"
+        }
       }
-    }]
+    ]
   }
 }
