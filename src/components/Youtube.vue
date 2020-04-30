@@ -1,6 +1,12 @@
 <template>
   <div class="youtube">
     <youtube :video-id="videoId" ref="youtube" width="100%" height="100%" />
+
+    <div class="btn-group">
+      <button @click="playVideo">play</button>
+      <button @click="pauseVideo">pause</button>
+      <button @click="stopVideo">stop</button>
+    </div>
   </div>
 </template>
 
@@ -54,4 +60,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.btn-group {
+  display: flex;
+  justify-content: space-evenly;
+}
+</style>
