@@ -1,16 +1,33 @@
 <template>
   <div class="playing-controller">
-    <vue-slider v-model="value"></vue-slider>
+    <vue-slider
+      :width="200"
+      :value="100"
+      :min="0"
+      :max="100"
+      :tooltip-formatter="convertToMinutes"
+      @change="changePlayPosition"
+      :lazy="true"
+      class="scrubber"
+    />
     <div @click="playVideo">
-      <font-awesome-icon class="controlIcons" size="1.5x" icon="play" />
+      <font-awesome-icon
+        class="playing-controller__icons"
+        size="1.5x"
+        icon="play"
+      />
     </div>
     <div @click="pauseVideo">
-      <font-awesome-icon class="controlIcons" size="1.5x" icon="pause" />
+      <font-awesome-icon
+        class="playing-controller__icons"
+        size="1.5x"
+        icon="pause"
+      />
     </div>
 
     <div @click="setRepeatStatus()">
       <font-awesome-icon
-        class="controlIcons"
+        class="playing-controller__icons"
         icon="redo"
         title="Repeat"
         size="1.5x"
@@ -19,7 +36,7 @@
 
     <font-awesome-icon
       @mouseenter="volumeVisible = true"
-      class="controlIcons"
+      class="playing-controller__icons"
       :icon="volume === 0 ? 'volume-mute' : 'volume-up'"
       size="1.5x"
     />
@@ -48,6 +65,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapState } from 'vuex';
 import VueSlider from 'vue-slider-component';
 import 'vue-slider-component/theme/default.css';
 
@@ -57,10 +75,16 @@ export default {
   data() {
     return {
       volumeVisible: false,
-      isPlaying: false,
     };
   },
   computed: {
+    ...mapGetters('player', ['getNowPlayingStatus']),
+    ...mapState('player', {
+      playbackTimeInfo: state => state.playbackTimeInfo,
+      volumeState: state => state.volume,
+      repeat: state => state.repeat,
+      isPlaying: state => state.isPlaying,
+    }),
     volume: {
       get() {
         return this.volumeState;
@@ -71,6 +95,19 @@ export default {
     },
   },
   methods: {
+    ...mapActions('player', [
+      'changePlaybackTime',
+      'setVolume',
+      'setRepeatStatus',
+      'play',
+      'pause',
+    ]),
+    async changePlayPosition(time) {
+      await this.changePlaybackTime({ time });
+    },
+    convertToMinutes(sec) {
+      return (sec - (sec %= 60)) / 60 + (9 < sec ? ':' : ':0') + sec;
+    },
     playVideo() {
       this.$bus.$emit('playVideo');
     },
@@ -90,25 +127,36 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .playing-controller {
   box-sizing: border-box;
   display: flex;
   align-self: center;
+  position: relative;
   flex-shrink: 0;
   width: 100%;
   height: 100px;
   justify-content: space-evenly;
   align-items: center;
   background-color: #bbb;
-}
 
-.controlIcons {
-  padding: 15px;
-  cursor: pointer;
-  border-radius: 50%;
-  background-color: #ddd;
-  color: #333;
+  &__icons {
+    flex-shrink: 0;
+    transition: 0.1s;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #ddd;
+    color: #333;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+
+    &:active {
+      transform: scale(0.6);
+    }
+  }
 }
 
 .volume-slider {
@@ -118,10 +166,10 @@ export default {
   justify-content: center;
   width: 40px;
   height: 130px;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(14, 11, 8, 0.6);
   position: absolute;
-  bottom: 0;
-  left: -10px;
+  bottom: 30px;
+0px;
   z-index: 10;
   border-radius: 10px;
   color: black;
@@ -130,5 +178,15 @@ export default {
 .scrubber {
   color: black;
   width: 100px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease-out;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

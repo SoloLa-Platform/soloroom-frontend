@@ -1,8 +1,14 @@
 <template>
   <div class="editor-container">
-    <div ref="score-container" class="score-container">
+    <div
+      ref="score-container"
+      class="score-container"
+    >
       <!-- SheetMusic Component-->
-      <div class="score" ref="score"></div>
+      <div
+        class="score"
+        ref="score"
+      ></div>
       <!-- NoteToolBox Component-->
       <div class="note-toolbox"></div>
     </div>
