@@ -25,7 +25,7 @@
       />
     </div>
 
-    <div @click="setRepeatStatus()">
+    <div @click="setRepeatStatus">
       <font-awesome-icon
         class="playing-controller__icons"
         icon="redo"
@@ -34,31 +34,33 @@
       />
     </div>
 
-    <font-awesome-icon
-      @mouseenter="volumeVisible = true"
-      class="playing-controller__icons"
-      :icon="volume === 0 ? 'volume-mute' : 'volume-up'"
-      size="1.5x"
-    />
+    <div class="volume-container">
+      <font-awesome-icon
+        @mouseenter="volumeVisible = true"
+        class="playing-controller__icons"
+        :icon="volume === 0 ? 'volume-mute' : 'volume-up'"
+        size="1.5x"
+      />
 
-    <transition name="fade">
-      <div
-        class="volume-slider"
-        @mouseleave="volumeVisible = false"
-        v-if="volumeVisible"
-      >
-        <vue-slider
-          direction="btt"
-          v-model="volume"
-          :min="0"
-          :max="1"
-          :height="100"
-          :interval="0.02"
-          :tooltip-placement="'right'"
-          :tooltip-formatter="value => Math.round(value * 100)"
-        />
-      </div>
-    </transition>
+      <transition name="fade">
+        <div
+          class="volume-slider"
+          @mouseleave="volumeVisible = false"
+          v-if="volumeVisible"
+        >
+          <vue-slider
+            direction="btt"
+            v-model="volume"
+            :min="0"
+            :max="1"
+            :height="100"
+            :interval="0.02"
+            :tooltip-placement="'right'"
+            :tooltip-formatter="value => Math.round(value * 100)"
+          />
+        </div>
+      </transition>
+    </div>
 
     <button @click="stopVideo">stop</button>
   </div>
@@ -109,7 +111,7 @@ export default {
       return (sec - (sec %= 60)) / 60 + (9 < sec ? ':' : ':0') + sec;
     },
     playVideo() {
-      this.$bus.$emit('playVideo');
+      this.$bus.$emit('Youtube:playVideo');
     },
     pauseVideo() {
       this.$bus.$emit('pauseVideo');
@@ -159,6 +161,9 @@ export default {
   }
 }
 
+.volume-container {
+  position: relative;
+}
 .volume-slider {
   display: flex;
   padding: 10px;
@@ -168,8 +173,8 @@ export default {
   height: 130px;
   background: rgba(14, 11, 8, 0.6);
   position: absolute;
-  bottom: 30px;
-0px;
+  bottom: 0px;
+  right: -5px;
   z-index: 10;
   border-radius: 10px;
   color: black;

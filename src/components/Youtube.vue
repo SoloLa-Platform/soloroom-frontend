@@ -1,6 +1,11 @@
 <template>
   <div class="youtube">
-    <youtube :video-id="videoId" ref="youtube" width="100%" height="100%" />
+    <youtube
+      :video-id="videoId"
+      ref="youtube"
+      width="100%"
+      height="100%"
+    />
   </div>
 </template>
 
@@ -13,10 +18,10 @@ export default {
     };
   },
   mounted() {
-    this.$bus.$on('playVideo', () => {
+    this.$bus.$on('Youtube:playVideo', () => {
       this.playVideo();
     }),
-      this.$bus.$on('pauseVideo', () => {
+      this.$bus.$on('Youtube:pauseVideo', () => {
         this.pauseVideo();
       }),
       this.$bus.$on('stopVideo', () => {
