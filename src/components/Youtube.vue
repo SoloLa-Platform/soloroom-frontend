@@ -1,12 +1,6 @@
 <template>
   <div class="youtube">
     <youtube :video-id="videoId" ref="youtube" width="100%" height="100%" />
-
-    <div class="btn-group">
-      <button @click="playVideo">play</button>
-      <button @click="pauseVideo">pause</button>
-      <button @click="stopVideo">stop</button>
-    </div>
   </div>
 </template>
 
@@ -16,6 +10,26 @@ export default {
     return {
       videoId: 'lG0Ys-2d4MA',
     };
+  },
+  mounted() {
+    this.$bus.$on('Youtube:playVideo', () => {
+      this.playVideo();
+    }),
+      this.$bus.$on('Youtube:pauseVideo', () => {
+        this.pauseVideo();
+      }),
+      this.$bus.$on('Youtube:stopVideo', () => {
+        this.stopVideo();
+      }),
+      this.$bus.$on('Youtube:setLoop', () => {
+        this.setLoop();
+      }),
+      // this.$bus.$on('Youtube:getVolume', () => {
+      //   return this.getVolume();
+      // }),
+      this.$bus.$on('Youtube:setVolume', volume => {
+        this.setVolume(volume);
+      });
   },
   methods: {
     playVideo() {
@@ -28,12 +42,10 @@ export default {
     stopVideo() {
       this.player.stopVideo();
     },
-    // getVolume() {
-    //   this.value = this.player.getVolume();
-    // },
-    // setVolume() {
-    //   this.player.setVolume(this.value);
-    // },
+    setVolume(volume) {
+      this.player.setVolume(this.volume);
+      console.log('hi');
+    },
   },
   computed: {
     player() {
