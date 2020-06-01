@@ -24,14 +24,14 @@ export default {
       this.$bus.$on('Youtube:pauseVideo', () => {
         this.pauseVideo();
       }),
-      this.$bus.$on('stopVideo', () => {
+      this.$bus.$on('Youtube:stopVideo', () => {
         this.stopVideo();
       }),
-      this.$bus.$on('getVolume', () => {
-        return this.getVolume();
-      }),
-      this.$bus.$on('setVolume', () => {
-        this.setVolume();
+      // this.$bus.$on('getVolume', () => {
+      //   return this.getVolume();
+      // }),
+      this.$bus.$on('setVolume', volume => {
+        this.setVolume(volume);
       });
   },
   methods: {
@@ -43,6 +43,10 @@ export default {
     },
     stopVideo() {
       this.player.stopVideo();
+    },
+    setVolume(volume) {
+      console.log(volume);
+      this.player.setVolume(volume);
     },
   },
   computed: {

@@ -41,6 +41,7 @@
         :icon="volume === 0 ? 'volume-mute' : 'volume-up'"
         size="1.5x"
       />
+      <span>{{volume}}</span>
 
       <transition name="fade">
         <div
@@ -58,8 +59,11 @@
             :tooltip-placement="'right'"
             :tooltip-formatter="value => Math.round(value * 100)"
           />
+
         </div>
+
       </transition>
+
     </div>
 
     <button @click="stopVideo">stop</button>
@@ -77,6 +81,7 @@ export default {
   data() {
     return {
       volumeVisible: false,
+      volume: 0,
     };
   },
   computed: {
@@ -87,14 +92,14 @@ export default {
       repeat: state => state.repeat,
       isPlaying: state => state.isPlaying,
     }),
-    volume: {
-      get() {
-        return this.volumeState;
-      },
-      set(value) {
-        this.setVolume({ volume: value });
-      },
-    },
+    // volume: {
+    //   get() {
+    //     return this.volumeState;
+    //   },
+    //   set(value) {
+    //     this.setVolume({ volume: value });
+    //   },
+    // },
   },
   methods: {
     ...mapActions('player', [
@@ -114,16 +119,16 @@ export default {
       this.$bus.$emit('Youtube:playVideo');
     },
     pauseVideo() {
-      this.$bus.$emit('pauseVideo');
+      this.$bus.$emit('Youtube:pauseVideo');
     },
     stopVideo() {
-      this.$bus.$emit('stopVideo');
+      this.$bus.$emit('Youtube:stopVideo');
     },
-    getVolume() {
-      this.$bus.$emit('getVolume');
-    },
+    // getVolume() {
+    //   this.$bus.$emit('getVolume');
+    // },
     setVolume() {
-      this.$bus.$emit('setVolume');
+      this.$bus.$emit('setVolume', this.volume);
     },
   },
 };
