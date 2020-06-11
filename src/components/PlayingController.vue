@@ -1,5 +1,6 @@
 <template>
   <div class="playing-controller">
+<<<<<<< HEAD
     <div class="playing-slider">
       <span>{{ playbackTimeInfo.currentPlaybackTime }} </span>
       <vue-slider
@@ -74,11 +75,28 @@
       </div>
 
       <button @click="stopVideo">stop</button>
+=======
+    <button @click="playVideo">play</button>
+    <button @click="pauseVideo">pause</button>
+    <button @click="stopVideo">stop</button>
+
+    <div class="volume">
+      <label for="volume">volume</label>
+      <input
+        @click="getVolume"
+        @input="setVolume"
+        type="range"
+        min="0"
+        max="100"
+        step="1"
+      />
+>>>>>>> 8ac64a3305ffd8e318289335d2d0dd42fbcaf062
     </div>
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import VueSlider from 'vue-slider-component';
 import 'vue-slider-component/theme/default.css';
 
@@ -127,11 +145,38 @@ export default {
     },
     showSlider() {
       this.volumeVisible = true;
+=======
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    playVideo() {
+      this.player.playVideo();
+    },
+    pauseVideo() {
+      this.player.pauseVideo();
+    },
+    stopVideo() {
+      this.player.stopVideo();
+    },
+    getVolume() {
+      this.value = this.player.getVolume();
+    },
+    setVolume() {
+      this.player.setVolume(this.value);
+    },
+  },
+  computed: {
+    player() {
+      return this.$refs.youtube.player;
+>>>>>>> 8ac64a3305ffd8e318289335d2d0dd42fbcaf062
     },
   },
 };
 </script>
 
+<<<<<<< HEAD
 <style lang="scss">
 .playing-controller {
   // border: 1px solid;
@@ -206,5 +251,11 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+=======
+<style>
+.playing-controller {
+  display: flex;
+  justify-content: space-evenly;
+>>>>>>> 8ac64a3305ffd8e318289335d2d0dd42fbcaf062
 }
 </style>

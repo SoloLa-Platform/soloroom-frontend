@@ -26,7 +26,10 @@
     "readline": "^1.3.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
+<<<<<<< HEAD
     "vue-slider-component": "^3.1.2",
+=======
+>>>>>>> 8ac64a3305ffd8e318289335d2d0dd42fbcaf062
     "vue-youtube": "^1.4.0",
     "vuex": "^3.0.1",
     "xml": "^1.0.1"
@@ -105,13 +108,24 @@
     "trailingComma": "all",
     "printWidth": 80,
     "semi": true,
+<<<<<<< HEAD
     "overrides": [{
       "files": [
         "*.json"
       ],
       "options": {
         "trailingComma": "es5"
+=======
+    "overrides": [
+      {
+        "files": [
+          "*.json"
+        ],
+        "options": {
+          "trailingComma": "es5"
+        }
+>>>>>>> 8ac64a3305ffd8e318289335d2d0dd42fbcaf062
       }
-    }]
+    ]
   }
 }

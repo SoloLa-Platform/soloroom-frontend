@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store/index.js';
 import VueYoutube from 'vue-youtube';
+<<<<<<< HEAD
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faPlay,
@@ -48,6 +49,8 @@ library.add(
 );
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+=======
+>>>>>>> 8ac64a3305ffd8e318289335d2d0dd42fbcaf062
 
 Vue.use(VueYoutube);
 
