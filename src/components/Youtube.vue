@@ -9,6 +9,7 @@ export default {
   data() {
     return {
       videoId: 'lG0Ys-2d4MA',
+      volume: 0.8,
     };
   },
   mounted() {
@@ -24,16 +25,15 @@ export default {
       this.$bus.$on('Youtube:setLoop', () => {
         this.setLoop();
       }),
-      // this.$bus.$on('Youtube:getVolume', () => {
-      //   return this.getVolume();
-      // }),
       this.$bus.$on('Youtube:setVolume', volume => {
         this.setVolume(volume);
+      }),
+      this.$bus.$on('Youtube:changePlayPosition', playingPosition => {
+        this.seekTo(playingPosition);
       });
   },
   methods: {
     playVideo() {
-      console.log(this);
       this.player.playVideo();
     },
     pauseVideo() {
@@ -43,8 +43,10 @@ export default {
       this.player.stopVideo();
     },
     setVolume(volume) {
-      this.player.setVolume(this.volume);
-      console.log('hi');
+      this.player.setVolume(volume * 100);
+    },
+    seekTo(playingPosition) {
+      this.player.seekTo(playingPosition);
     },
   },
   computed: {

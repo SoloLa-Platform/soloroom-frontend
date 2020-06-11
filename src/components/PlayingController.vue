@@ -1,33 +1,35 @@
 <template>
   <div class="playing-controller">
     <div class="playing-slider">
+      <span>{{ playbackTimeInfo.currentPlaybackTime }} </span>
       <vue-slider
-        ref="position-slider"
-        :width="1000"
-        :value="100"
-        v-model="playingPosition"
+        :width="600"
+        v-model="playbackTimeInfo.currentPlaybackTime"
         :min="0"
-        :max="100"
+        :max="playbackTimeInfo.currentPlaybackDuration || 10"
         :tooltip-formatter="convertToMinutes"
         @change="changePlayPosition"
         :lazy="true"
         class="scrubber"
       />
-      <span>{{ playingPosition }} </span>
+      <!-- <div class="play-time-labels">
+        <div>{{ currentTimeInMinutes }}</div>
+        <div>{{ currentDurationInMinutes || '0:00' }}</div>
+      </div> -->
     </div>
 
     <div class="playing-buttons">
       <div @click="playVideo">
         <font-awesome-icon
           class="playing-controller__icons"
-          size="1.5x"
+          size="1x"
           icon="play"
         />
       </div>
       <div @click="pauseVideo">
         <font-awesome-icon
           class="playing-controller__icons"
-          size="1.5x"
+          size="1x"
           icon="pause"
         />
       </div>
@@ -37,18 +39,18 @@
           class="playing-controller__icons"
           icon="redo"
           title="Repeat"
-          size="1.5x"
+          size="1x"
         />
       </div>
 
       <div class="volume-container">
-        <span>{{ volume }}</span>
         <font-awesome-icon
-          @mouseenter="volumeVisible = true"
+          @mouseenter="showSlider"
           class="playing-controller__icons"
           :icon="volume === 0 ? 'volume-mute' : 'volume-up'"
-          size="1.5x"
+          size="1x"
         />
+        <!-- <span>{{ volume }}</span> -->
 
         <transition name="fade">
           <div
@@ -58,15 +60,14 @@
           >
             <vue-slider
               direction="btt"
-              :volume="volume"
-              @input="setVolume"
+              v-model="volume"
               :min="0"
               :max="1"
               :height="100"
               :interval="0.02"
               :tooltip-placement="'right'"
               :tooltip-formatter="value => Math.round(value * 100)"
-              label="volume"
+              @change="setVolume"
             />
           </div>
         </transition>
@@ -80,20 +81,31 @@
 <script>
 import VueSlider from 'vue-slider-component';
 import 'vue-slider-component/theme/default.css';
+
 export default {
-  name: 'PlayingController',
+  name: 'PlayerController',
   components: { VueSlider },
   data() {
     return {
       volumeVisible: false,
-      volume: 0,
-      playingPosition: 0,
+      volume: 1,
+      playbackTimeInfo: {
+        currentPlaybackTime: null,
+        currentPlaybackDuration: null,
+        currentPlaybackTimeRemaining: null,
+      },
     };
   },
   computed: {},
   methods: {
-    async changePlayPosition(time) {
-      await this.changePlaybackTime({ time });
+    // async changePlayPosition(time) {
+    //   await this.changePlaybackTime({ time });
+    // },
+    changePlayPosition() {
+      this.$bus.$emit(
+        'Youtube:changePlayPosition',
+        this.currentPlaybackTimeInfo.currentPlaybackTime,
+      );
     },
     convertToMinutes(sec) {
       return (sec - (sec %= 60)) / 60 + (9 < sec ? ':' : ':0') + sec;
@@ -110,12 +122,11 @@ export default {
     setLoop() {
       this.$bus.$emit('Youtube:setLoop');
     },
-    // getVolume() {
-    //   this.$bus.$emit('Youtube:getVolume', );
-    // },
-    setVolume(event) {
-      // this.$bus.$emit('Youtube:setVolume', event.target.volume);
-      console.log(event.target.volume);
+    setVolume() {
+      this.$bus.$emit('Youtube:setVolume', this.volume);
+    },
+    showSlider() {
+      this.volumeVisible = true;
     },
   },
 };
@@ -138,7 +149,8 @@ export default {
   background-color: #bbb;
 
   .playing-slider {
-    // padding: 10px;
+    margin: 0 10px 15px;
+    // border: 1px solid;
   }
 
   .playing-buttons {
