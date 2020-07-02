@@ -20,5 +20,6 @@ export default {
   namespaced: true,
   playerState,
   mutations,
-  actions
+  actions,
+  getters,
 };

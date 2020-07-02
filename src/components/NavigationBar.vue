@@ -1,16 +1,30 @@
 <template>
   <div class="navigation-bar">
-    <router-link to="/" class="logo-text">Solola</router-link>
+    <router-link
+      to="/"
+      class="logo-text"
+    >Solola</router-link>
     <div class="action-button-container">
-      <router-link v-if="$router.currentRoute.path==='/transcribe'" :to="newURL" class="button">New</router-link>
+      <router-link
+        v-if="$router.currentRoute.path==='/transcribe'"
+        :to="newURL"
+        class="button"
+      >New</router-link>
       <template v-if="isLoggedIn">
-        <button type="button" @click="sendLogoutRequest">Logout</button>
+        <button
+          type="button"
+          @click="sendLogoutRequest"
+        >Logout</button>
         <!-- TODO : this will be replaced by icon to indicate user login status -->
         <div class="user-icon-block">
           <span class="nav-welcome">Hello {{ user.name }}.</span>
         </div>
       </template>
-      <router-link v-if="!isLoggedIn" to="/login" class="button">Login</router-link>
+      <router-link
+        v-if="!isLoggedIn"
+        to="/login"
+        class="button"
+      >Login</router-link>
     </div>
   </div>
 </template>

@@ -72,7 +72,8 @@
         </transition>
       </div>
 
-      <button @click="stopVideo">stop</button>
+     <button @click="stopVideo">stop</button>
+
     </div>
   </div>
 </template>
@@ -145,6 +146,7 @@ export default {
     setLoop() {
       this.$bus.$emit('Youtube:setLoop');
     },
+
     setVolume() {
       this.$bus.$emit('Youtube:setVolume', this.volume);
     },
@@ -221,6 +223,7 @@ export default {
 .fade-leave-active {
   transition: opacity 0.2s ease-out;
 }
+
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
