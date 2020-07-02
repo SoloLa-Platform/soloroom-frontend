@@ -10,12 +10,11 @@
         :tooltip-formatter="convertToMinutes"
         @change="changePlayPosition"
         :lazy="true"
-        class="scrubber"
       />
-      <!-- <div class="play-time-labels">
+      <div class="play-time-labels">
         <div>{{ currentTimeInMinutes }}</div>
         <div>{{ currentDurationInMinutes || '0:00' }}</div>
-      </div> -->
+      </div>
     </div>
 
     <div class="playing-buttons">
@@ -50,7 +49,7 @@
           :icon="volume === 0 ? 'volume-mute' : 'volume-up'"
           size="1x"
         />
-        <!-- <span>{{ volume }}</span> -->
+        <span>{{ volume }}</span>
 
         <transition name="fade">
           <div
@@ -79,6 +78,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapState } from 'vuex';
 import VueSlider from 'vue-slider-component';
 import 'vue-slider-component/theme/default.css';
 
@@ -96,11 +96,34 @@ export default {
       },
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters('player', ['getNowPlayingStatus']),
+    ...mapState('player', {
+      playbackTimeInfo: state => state.playbackTimeInfo,
+      volumeState: state => state.volume,
+      repeat: state => state.repeat,
+      isPlaying: state => state.isPlaying,
+    }),
+    volume: {
+      get() {
+        return this.volumeState;
+      },
+      set(value) {
+        this.setVolume({ volume: value });
+      },
+    },
+  },
   methods: {
-    // async changePlayPosition(time) {
-    //   await this.changePlaybackTime({ time });
-    // },
+    ...mapActions('player', [
+      'changePlaybackTime',
+      'setVolume',
+      'setRepeatStatus',
+      'play',
+      'pause',
+    ]),
+    async changePlayPosition(time) {
+      await this.changePlaybackTime({ time });
+    },
     changePlayPosition() {
       this.$bus.$emit(
         'Youtube:changePlayPosition',
@@ -134,7 +157,6 @@ export default {
 
 <style lang="scss">
 .playing-controller {
-  // border: 1px solid;
   padding: 20px 20px;
   box-sizing: border-box;
   display: flex;
@@ -143,18 +165,16 @@ export default {
   position: relative;
   flex-shrink: 0;
   width: 100%;
-  height: 120px;
+  height: 150px;
   justify-content: space-between;
   align-items: space-evenly;
   background-color: #bbb;
 
   .playing-slider {
     margin: 0 10px 15px;
-    // border: 1px solid;
   }
 
   .playing-buttons {
-    // padding: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -196,9 +216,7 @@ export default {
   border-radius: 10px;
   color: black;
 }
-.scrubber {
-  color: black;
-}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s ease-out;

@@ -1,5 +1,6 @@
 import getters from './getters.js';
 import mutations from './mutations.js';
+import actions from './actions.js'
 
 const playerState = {
   volume: 1,
@@ -19,5 +20,5 @@ export default {
   namespaced: true,
   playerState,
   mutations,
-  getters,
+  actions
 };
