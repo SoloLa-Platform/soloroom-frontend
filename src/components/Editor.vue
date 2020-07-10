@@ -1,14 +1,8 @@
 <template>
   <div class="editor-container">
-    <div
-      ref="score-container"
-      class="score-container"
-    >
+    <div ref="score-container" class="score-container">
       <!-- SheetMusic Component-->
-      <div
-        class="score"
-        ref="score"
-      ></div>
+      <div class="score" ref="score"></div>
       <!-- NoteToolBox Component-->
       <div class="note-toolbox"></div>
     </div>
@@ -68,7 +62,7 @@ export default Vue.extend({
             'Content-Type': 'application/xml; charset=utf-8',
           },
         })
-        .then(response => {
+        .then((response) => {
           this.demoSheet = response.data;
         });
     },

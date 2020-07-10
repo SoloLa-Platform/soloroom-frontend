@@ -65,15 +65,14 @@
               :height="100"
               :interval="0.02"
               :tooltip-placement="'right'"
-              :tooltip-formatter="value => Math.round(value * 100)"
+              :tooltip-formatter="(value) => Math.round(value * 100)"
               @change="setVolume"
             />
           </div>
         </transition>
       </div>
 
-     <button @click="stopVideo">stop</button>
-
+      <button @click="stopVideo">stop</button>
     </div>
   </div>
 </template>
@@ -100,10 +99,10 @@ export default {
   computed: {
     ...mapGetters('player', ['getNowPlayingStatus']),
     ...mapState('player', {
-      playbackTimeInfo: state => state.playbackTimeInfo,
-      volumeState: state => state.volume,
-      repeat: state => state.repeat,
-      isPlaying: state => state.isPlaying,
+      playbackTimeInfo: (state) => state.playbackTimeInfo,
+      volumeState: (state) => state.volume,
+      repeat: (state) => state.repeat,
+      isPlaying: (state) => state.isPlaying,
     }),
     volume: {
       get() {

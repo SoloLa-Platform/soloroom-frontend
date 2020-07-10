@@ -25,10 +25,10 @@ export default {
       this.$bus.$on('Youtube:setLoop', () => {
         this.setLoop();
       }),
-      this.$bus.$on('Youtube:setVolume', volume => {
+      this.$bus.$on('Youtube:setVolume', (volume) => {
         this.setVolume(volume);
       }),
-      this.$bus.$on('Youtube:changePlayPosition', playingPosition => {
+      this.$bus.$on('Youtube:changePlayPosition', (playingPosition) => {
         this.seekTo(playingPosition);
       });
   },
