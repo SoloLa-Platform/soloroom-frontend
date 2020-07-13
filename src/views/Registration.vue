@@ -2,13 +2,15 @@
   <div class="section">
     <form @submit.prevent="">
       <label for="name">Name:</label>
-      <input v-model="name" type="text" name="name"/>
+      <input v-model="name" type="text" name="name" />
       <label for="email">Email:</label>
-      <input v-model="email" type="email" name="email"/>
+      <input v-model="email" type="email" name="email" />
       <label for="password">Password:</label>
       <input v-model="password" type="password" />
       <p v-if="status === '400'">Please enter different info.</p>
-      <button class="action-button" @click="sendRegisterRequest" name="button">Register</button>
+      <button class="action-button" @click="sendRegisterRequest" name="button">
+        Register
+      </button>
     </form>
   </div>
 </template>
@@ -37,7 +39,7 @@ export default {
         .then(() => {
           this.$router.push({ path: '/' });
         })
-        .catch(err => {
+        .catch((err) => {
           this.status = err.response.status;
         });
     },

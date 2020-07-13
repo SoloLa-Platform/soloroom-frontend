@@ -62,7 +62,7 @@ export default Vue.extend({
             'Content-Type': 'application/xml; charset=utf-8',
           },
         })
-        .then(response => {
+        .then((response) => {
           this.demoSheet = response.data;
         });
     },
