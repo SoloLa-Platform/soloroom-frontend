@@ -5,7 +5,9 @@
       <input v-model="email" type="email" name="email" />
       <label for="password">Password:</label>
       <input v-model="password" type="password" />
-      <button class="action-button" @click="sendLoginRequest" name="button">Login</button>
+      <button class="action-button" @click="sendLoginRequest" name="button">
+        Login
+      </button>
       <a>
         <span>Don't have account?</span>
         <router-link to="/register" class="text">register</router-link>!
@@ -34,13 +36,13 @@ export default {
       }).then(() => {
         if (this.user.token) {
           this.$router.push({ path: '/transcribe' });
-        } 
+        }
       });
     },
   },
   computed: {
     ...mapState(['user']),
-  }
+  },
 };
 </script>
 
