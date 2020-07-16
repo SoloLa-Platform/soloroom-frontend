@@ -1,14 +1,8 @@
 <template>
-  <div class="transcription-container">
-    <div class="transcription-content">
-      <!-- MediaWrapper Component-->
-      <div class="media-wrapper">
-        <AudioMedia/>
-      </div>
-      <!-- Editor Component -->
-      <div class="editor-wrapper">
-        <Editor class="editor"/>
-      </div>
+  <div class="base">
+    <div class="content">
+      <AudioMedia class="video-panel"/>
+      <Editor class="editor"/>
     </div>
   </div>
 </template>
@@ -18,7 +12,7 @@ import Editor from '@/components/Editor.vue';
 import AudioMedia from '@/components/AudioMedia.vue';
 
 export default {
-  name: 'transcription',
+  name: 'Transcription',
   data() {
     return {
       viewer: Object,
@@ -32,18 +26,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.transcription-container {
+.base {
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-
-  .transcription-content {
+  
+  .content {
+    flex: 1;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    
-    .media-wrapper {
-      background: #ECECEC;
-      border: 1px solid rgb(224, 224, 224);
+    position: relative;
+    overflow: hidden;
+
+    .editor {
+      flex: 1 1 auto;
     }
   }
 }
