@@ -1,9 +1,12 @@
-body {
+html,
+body,
+#app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 0em;
-  margin: 0em;
+  padding: 0;
+  margin: 0;
+  height: 100%;
 }
 
 .section {
@@ -11,7 +14,6 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  min-height: calc(100vh - 56px);
 }
 
 a:visited {

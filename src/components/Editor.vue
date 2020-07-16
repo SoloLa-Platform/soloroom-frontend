@@ -1,13 +1,9 @@
 <template>
   <div class="editor-container">
-    <div ref="score-container" class="score-container">
-      <!-- SheetMusic Component-->
-      <div class="score" ref="score"></div>
-      <!-- NoteToolBox Component-->
-      <div class="note-toolbox"></div>
+    <div class="score-container">
+      <div class="score" ref="score" />
     </div>
-    <!-- PlayingController Component-->
-    <div class="control-container">
+    <div class="editor-control">
       <PlayingController />
     </div>
   </div>
@@ -74,31 +70,21 @@ export default Vue.extend({
 .editor-container {
   display: flex;
   flex-direction: column;
+
   .score-container {
-    display: flex;
-    height: calc(90vh - 70px);
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    
+    overflow-y: auto;
     .score {
-      display: inline-block;
-      overflow-y: scroll;
-
-      @media screen and (max-width: 1367px) {
-        // width: 1200px;
-        width: calc(69vw - 60px);
-      }
-
-      @media screen and (min-width: 1366px) and (max-width: 1920px) {
-        // width: 1500px;
-        width: 75vw;
-      }
+      display: flex;
     }
   }
-  .control-container {
+  .editor-control {
+    flex-grow: 0;
+    flex-shrink: 1;
     background-color: #ffffff;
-    height: 50px;
-    border: 1px solid rgb(224, 224, 224);
-  }
-  .note-toolbox {
-    width: 60px;
     border: 1px solid rgb(224, 224, 224);
   }
 }
