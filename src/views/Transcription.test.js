@@ -13,6 +13,10 @@ describe('test Transcription page', () => {
                   name: 'Editor',
                   template: '<div/>',
                 },
+                PlayingControl: {
+                  name: 'PlayingControl',
+                  template: '<div/>'
+                }
               },
             });
             expect(wrapper);

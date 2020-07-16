@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div class="base-layout">
     <NavigationBar />
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 
@@ -20,4 +20,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.base-layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 </style>

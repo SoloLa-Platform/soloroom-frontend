@@ -24,7 +24,7 @@
       <label for="upload-audio" class="input-label">Upload audio</label>
       <input id="upload-audio" type="file">
       <button class="primary upload">Upload</button>
-    </div> -->
+    </div>-->
   </div>
 </template>
 
@@ -42,6 +42,8 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .audio-media-container {
+  background: #ececec;
+  border: 1px solid rgb(224, 224, 224);
 }
 .video-container {
   padding: 1em;
