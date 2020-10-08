@@ -2,12 +2,18 @@
   <div class="editor-container">
     <!-- Music Sheet -->
     <div class="score-container">
-      <SheetMusic></SheetMusic>
+      <SheetMusic
+        v-if="mounted"
+        @osmdInit="osmdInit"
+        @scoreLoaded="scoreLoaded"
+        :score="selectedScore"
+        :ready="pbEngineReady"
+      ></SheetMusic>
     </div>
 
     <!-- Playing Control -->
     <div class="editor-control">
-      <PlayingController />
+      <PlayingController :playbackEngine="pbEngine" />
     </div>
   </div>
 </template>
@@ -18,11 +24,43 @@ import Vue, { VNode } from 'vue';
 import PlayingController from '@/components/PlayingController.vue';
 import SheetMusic from '@/components/SheetMusic.vue';
 
+import PlaybackEngine from '../../dist/playback/PlaybackEngine';
+
 export default Vue.extend({
   name: 'Editor',
   components: {
     PlayingController,
     SheetMusic,
+  },
+
+  data() {
+    return {
+      pbEngine: new PlaybackEngine(),
+      pbEngineReady: false,
+      mounted: false,
+      osmd: null,
+      selectedScore: '',
+    };
+  },
+  methods: {
+    osmdInit(osmd) {
+      // console.log('OSMD init');
+      this.osmd = osmd;
+      this.selectedScore =
+        'https://opensheetmusicdisplay.github.io/demo/sheets/MuzioClementi_SonatinaOpus36No3_Part1.xml';
+    },
+    async scoreLoaded() {
+      // console.log('Score loaded');
+      // if (this.osmd.sheet.title) this.scoreTitle = this.osmd.sheet.title.text;
+      await this.pbEngine.loadScore(this.osmd);
+      // console.log('pbEngine ready');
+      this.pbEngineReady = true;
+    },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.mounted = true;
+    }, 200);
   },
 });
 </script>
@@ -38,10 +76,9 @@ export default Vue.extend({
     flex-basis: auto;
 
     overflow-y: auto;
-    .score {
-      display: flex;
-    }
+    padding: 1%;
   }
+
   .editor-control {
     flex-grow: 0;
     flex-shrink: 1;
