@@ -24,6 +24,8 @@
     "jsonwebtoken": "^8.5.1",
     "opensheetmusicdisplay": "^0.7.1",
     "readline": "^1.3.0",
+    "soundfont-player": "^0.12.0",
+    "store": "^2.0.12",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vue-slider-component": "^3.1.2",
@@ -33,16 +35,23 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.18",
+    "@types/store": "^2.0.2",
     "@vue/cli-plugin-babel": "4.1.1",
     "@vue/cli-plugin-typescript": "^3.8.0",
     "@vue/cli-plugin-unit-jest": "^3.8.0",
     "@vue/cli-service": "^3.8.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^24.9.0",
+    "eslint": "^7.10.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-vue": "^7.0.1",
     "jest": "^24.9.0",
     "jest-transform-stub": "^2.0.0",
     "node-sass": "^4.9.0",
+    "prettier": "^2.1.2",
     "sass-loader": "^7.1.0",
     "ts-jest": "^24.1.0",
     "typescript": "^3.6.3",
@@ -97,24 +106,5 @@
         "babelConfig": true
       }
     }
-  },
-  "prettier": {
-    "bracketSpacing": true,
-    "singleQuote": true,
-    "jsxBracketSameLine": true,
-    "trailingComma": "all",
-    "printWidth": 80,
-    "semi": true,
-    "arrowParens": "always",
-    "overrides": [
-      {
-        "files": [
-          "*.json"
-        ],
-        "options": {
-          "trailingComma": "es5"
-        }
-      }
-    ]
   }
 }

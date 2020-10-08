@@ -2,7 +2,7 @@
   <div class="playing-controller">
     <div class="playing-slider">
       <!-- <span>{{ playbackTimeInfo.currentPlaybackTime }} </span> -->
-      <vue-slider
+      <!-- <vue-slider
         :width="600"
         v-model="playbackTimeInfo.currentPlaybackTime"
         :min="0"
@@ -10,22 +10,33 @@
         :tooltip-formatter="convertToMinutes"
         @change="changePlayPosition"
         :lazy="true"
+      /> -->
+      <vue-slider
+        :value="this.playbackEngine.currentIterationStep"
+        :min="0"
+        :max="this.playbackEngine.iterationSteps"
+        :step="1"
+        @input="(val) => this.playbackEngine.jumpToStep(val)"
+        class="progress-slider"
       />
-      <div class="play-time-labels">
+      <!-- <div class="play-time-labels">
         <div>{{ currentTimeInMinutes }}</div>
         <div>{{ currentDurationInMinutes || '0:00' }}</div>
-      </div>
+      </div> -->
     </div>
 
     <div class="playing-buttons">
-      <div @click="playVideo">
+      <div
+        @click="playbackEngine.play()"
+        v-if="playbackEngine.state !== 'PLAYING'"
+      >
         <font-awesome-icon
           class="playing-controller__icons"
           size="1x"
           icon="play"
         />
       </div>
-      <div @click="pauseVideo">
+      <div v-else @click="playbackEngine.pause()">
         <font-awesome-icon
           class="playing-controller__icons"
           size="1x"
@@ -72,7 +83,7 @@
         </transition>
       </div>
 
-      <button @click="stopVideo">stop</button>
+      <button @click="playbackEngine.stop()">stop</button>
     </div>
   </div>
 </template>
@@ -80,11 +91,12 @@
 <script>
 import { mapGetters, mapActions, mapState } from 'vuex';
 import VueSlider from 'vue-slider-component';
-// import 'vue-slider-component/theme/default.css';
+import 'vue-slider-component/theme/default.css';
 
 export default {
   name: 'PlayerController',
   components: { VueSlider },
+  props: { playbackEngine: Object },
   data() {
     return {
       volumeVisible: false,
@@ -251,7 +263,8 @@ export default {
 .vue-slider-mark {
   z-index: 4;
 }
-.vue-slider-mark:first-child .vue-slider-mark-step, .vue-slider-mark:last-child .vue-slider-mark-step {
+.vue-slider-mark:first-child .vue-slider-mark-step,
+.vue-slider-mark:last-child .vue-slider-mark-step {
   display: none;
 }
 .vue-slider-mark-step {
@@ -296,7 +309,7 @@ export default {
   box-sizing: content-box;
 }
 .vue-slider-dot-tooltip-inner::after {
-  content: "";
+  content: '';
   position: absolute;
 }
 .vue-slider-dot-tooltip-inner-top::after {
@@ -353,5 +366,4 @@ export default {
 }
 
 /*# sourceMappingURL=default.css.map */
-
 </style>
