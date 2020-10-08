@@ -1,3 +1,3 @@
 export default {
-  isLoggedIn: state => !! state.token,
+  isLoggedIn: (state) => !!state.token,
 };
