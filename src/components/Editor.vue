@@ -20,11 +20,9 @@
 
 <script lang="ts">
 import Vue, { VNode } from 'vue';
-
 import PlayingController from '@/components/PlayingController.vue';
 import SheetMusic from '@/components/SheetMusic.vue';
-
-import PlaybackEngine from '../../dist/playback/PlaybackEngine';
+import PlaybackEngine from '@/playback/PlaybackEngine';
 
 export default Vue.extend({
   name: 'Editor',
