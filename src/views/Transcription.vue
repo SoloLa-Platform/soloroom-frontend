@@ -2,12 +2,16 @@
   <div class="base">
     <div class="content">
       <AudioMedia class="video-panel"/>
-      <Editor class="editor"/>
+      <Editor
+        class="editor"
+        :youtubePlayer="youtube" 
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import YoutubePlayer from '@/models/YoutubePlayer.ts';
 import Editor from '@/components/Editor.vue';
 import AudioMedia from '@/components/AudioMedia.vue';
 
@@ -16,6 +20,11 @@ export default {
   data() {
     return {
       viewer: Object,
+      youtube: new YoutubePlayer({
+        videoId: 'hxwjT90i8Ys',
+        height:'100%',
+        width: '100%',
+      }),
     };
   },
   components: {

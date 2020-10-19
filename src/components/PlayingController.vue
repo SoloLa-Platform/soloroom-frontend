@@ -24,10 +24,9 @@
         <div>{{ currentDurationInMinutes || '0:00' }}</div>
       </div> -->
     </div>
-
     <div class="playing-buttons">
-      <div
-        @click="playbackEngine.play()"
+      <span
+        @click="play"
         v-if="playbackEngine.state !== 'PLAYING'"
       >
         <font-awesome-icon
@@ -35,8 +34,11 @@
           size="1x"
           icon="play"
         />
-      </div>
-      <div v-else @click="playbackEngine.pause()">
+      </span>
+      <div
+        v-else
+        @click="pause"
+      >
         <font-awesome-icon
           class="playing-controller__icons"
           size="1x"
@@ -52,7 +54,6 @@
           size="1x"
         />
       </div>
-
       <div class="volume-container">
         <font-awesome-icon
           @mouseenter="showSlider"
@@ -61,7 +62,6 @@
           size="1x"
         />
         <span>{{ volume }}</span>
-
         <transition name="fade">
           <div
             class="volume-slider"
@@ -82,7 +82,6 @@
           </div>
         </transition>
       </div>
-
       <button @click="playbackEngine.stop()">stop</button>
     </div>
   </div>
@@ -95,7 +94,16 @@ import VueSlider from 'vue-slider-component';
 export default {
   name: 'PlayerController',
   components: { VueSlider },
-  props: { playbackEngine: Object },
+  props: {
+    playbackEngine: {
+      type: Object,
+      default: () => ({}),
+    },
+    youtubePlayer: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
       volumeVisible: false,
@@ -110,18 +118,15 @@ export default {
   computed: {
     ...mapGetters('player', ['getNowPlayingStatus']),
     ...mapState('player', {
-      playbackTimeInfo: (state) => state.playbackTimeInfo,
       volumeState: (state) => state.volume,
       repeat: (state) => state.repeat,
       isPlaying: (state) => state.isPlaying,
     }),
-    volume: {
-      get() {
-        return this.volumeState;
-      },
-      set(value) {
-        this.setVolume({ volume: value });
-      },
+    youtubePlayerState() {
+      return this.youtubePlayer.state;
+    },
+    isYoutubePlayerStateReady() {
+      return this.youtubePlayerState === 'READY';
     },
   },
   methods: {
@@ -129,8 +134,6 @@ export default {
       'changePlaybackTime',
       'setVolume',
       'setRepeatStatus',
-      'play',
-      'pause',
     ]),
     async changePlayPosition(time) {
       await this.changePlaybackTime({ time });
@@ -144,19 +147,21 @@ export default {
     convertToMinutes(sec) {
       return (sec - (sec %= 60)) / 60 + (9 < sec ? ':' : ':0') + sec;
     },
-    playVideo() {
-      this.$bus.$emit('Youtube:playVideo');
+    play() {
+      this.youtubePlayer.play();
+      this.playbackEngine.play();
     },
-    pauseVideo() {
-      this.$bus.$emit('Youtube:pauseVideo');
+    pause() {
+      this.youtubePlayer.pause();
+      this.playbackEngine.pause();
     },
+
     stopVideo() {
       this.$bus.$emit('Youtube:stopVideo');
     },
     setLoop() {
       this.$bus.$emit('Youtube:setLoop');
     },
-
     setVolume() {
       this.$bus.$emit('Youtube:setVolume', this.volume);
     },
