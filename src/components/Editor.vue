@@ -1,19 +1,19 @@
 <template>
   <div class="editor-container">
-    <!-- Music Sheet -->
     <div class="score-container">
       <SheetMusic
         v-if="mounted"
         @osmdInit="osmdInit"
         @scoreLoaded="scoreLoaded"
         :score="selectedScore"
-        :ready="pbEngineReady"
-      ></SheetMusic>
+        :ready="playbackEngineReady"
+      />
     </div>
-
-    <!-- Playing Control -->
     <div class="editor-control">
-      <PlayingController :playbackEngine="pbEngine" />
+      <PlayingController
+        :playbackEngine="playbackEngine"
+        :youtubePlayer="youtubePlayer"
+      />
     </div>
   </div>
 </template>
@@ -30,11 +30,15 @@ export default Vue.extend({
     PlayingController,
     SheetMusic,
   },
-
+  props: {
+   youtubePlayer: {
+     type: Object,
+   },
+  },
   data() {
     return {
-      pbEngine: new PlaybackEngine(),
-      pbEngineReady: false,
+      playbackEngine: new PlaybackEngine(),
+      playbackEngineReady: false,
       mounted: false,
       osmd: null,
       selectedScore: '',
@@ -50,9 +54,9 @@ export default Vue.extend({
     async scoreLoaded() {
       // console.log('Score loaded');
       // if (this.osmd.sheet.title) this.scoreTitle = this.osmd.sheet.title.text;
-      await this.pbEngine.loadScore(this.osmd);
-      // console.log('pbEngine ready');
-      this.pbEngineReady = true;
+      await this.playbackEngine.loadScore(this.osmd);
+      // console.log('playbackEngine ready');
+      this.playbackEngineReady = true;
     },
   },
   mounted() {
@@ -71,8 +75,7 @@ export default Vue.extend({
   .score-container {
     flex-grow: 1;
     flex-shrink: 1;
-    flex-basis: auto;
-
+    flex-basis: 360px;
     overflow-y: auto;
     padding: 1%;
   }
