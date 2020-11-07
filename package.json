@@ -46,9 +46,11 @@
     "eslint-plugin-vue": "^7.0.1",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
+    "husky": ">=4",
     "jest": "26.0.0",
     "jest-transform-stub": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
+    "lint-staged": ">=10",
     "node-sass": "^4.13.1",
     "prettier": "^2.1.2",
     "readline": "^1.3.0",
@@ -107,5 +109,13 @@
         "babelConfig": true
       }
     }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{vue,ts,js,json,html,css,md}": "prettier --write"
   }
 }
