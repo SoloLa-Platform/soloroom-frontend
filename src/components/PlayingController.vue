@@ -25,34 +25,15 @@
       </div> -->
     </div>
     <div class="playing-buttons">
-      <span
-        @click="play"
-        v-if="playbackEngine.state !== 'PLAYING'"
-      >
-        <font-awesome-icon
-          class="playing-controller__icons"
-          size="1x"
-          icon="play"
-        />
+      <span @click="play" v-if="playbackEngine.state !== 'PLAYING'">
+        <font-awesome-icon class="playing-controller__icons" size="1x" icon="play" />
       </span>
-      <div
-        v-else
-        @click="pause"
-      >
-        <font-awesome-icon
-          class="playing-controller__icons"
-          size="1x"
-          icon="pause"
-        />
+      <div v-else @click="pause">
+        <font-awesome-icon class="playing-controller__icons" size="1x" icon="pause" />
       </div>
 
       <div @click="setLoop">
-        <font-awesome-icon
-          class="playing-controller__icons"
-          icon="redo"
-          title="Repeat"
-          size="1x"
-        />
+        <font-awesome-icon class="playing-controller__icons" icon="redo" title="Repeat" size="1x" />
       </div>
       <div class="volume-container">
         <font-awesome-icon
@@ -63,11 +44,7 @@
         />
         <span>{{ volume }}</span>
         <transition name="fade">
-          <div
-            class="volume-slider"
-            @mouseleave="volumeVisible = false"
-            v-if="volumeVisible"
-          >
+          <div class="volume-slider" @mouseleave="volumeVisible = false" v-if="volumeVisible">
             <vue-slider
               direction="btt"
               v-model="volume"
@@ -130,11 +107,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('player', [
-      'changePlaybackTime',
-      'setVolume',
-      'setRepeatStatus',
-    ]),
+    ...mapActions('player', ['changePlaybackTime', 'setVolume', 'setRepeatStatus']),
     async changePlayPosition(time) {
       await this.changePlaybackTime({ time });
     },
