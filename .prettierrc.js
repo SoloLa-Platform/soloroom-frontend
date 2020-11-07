@@ -1,19 +1,19 @@
-module.exports =  {
-  "bracketSpacing": true,
-  "singleQuote": true,
-  "jsxBracketSameLine": true,
-  "trailingComma": "all",
-  "printWidth": 80,
-  "semi": true,
-  "arrowParens": "always",
-  "overrides": [
+module.exports = {
+  tabWidth: 2,
+  bracketSpacing: true,
+  singleQuote: true,
+  jsxBracketSameLine: true,
+  htmlWhitespaceSensitivity: 'ignore',
+  trailingComma: 'all',
+  printWidth: 100,
+  semi: true,
+  arrowParens: 'always',
+  overrides: [
     {
-      "files": [
-        "*.json"
-      ],
-      "options": {
-        "trailingComma": "es5"
-      }
-    }
-  ]
-}
+      files: ['*.json'],
+      options: {
+        trailingComma: 'es5',
+      },
+    },
+  ],
+};
